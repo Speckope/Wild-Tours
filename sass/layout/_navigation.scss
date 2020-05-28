@@ -1,0 +1,192 @@
+.navigation {
+  &__checkbox {
+    //   so checkbox we wil be using for
+    display: none;
+  }
+
+  //   we basically style label so it will work like checkbox!
+  &__button {
+    background-color: $color-white;
+    height: 7rem;
+    width: 7rem;
+    position: fixed;
+    top: 6rem;
+    right: 6rem;
+    border-radius: 50%;
+    z-index: 2000;
+    box-shadow: 0 1rem 3rem rgba($color-black, 0.1);
+    text-align: center;
+    cursor: pointer;
+
+    @include respond(tab-port) {
+      top: 4rem;
+      right: 4rem;
+    }
+    @include respond(tab-port) {
+      top: 3rem;
+      right: 3rem;
+    }
+  }
+
+  &__background {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    // with fixed position it doesnt change place when we scroll
+    // it also allows us to specify position
+    position: fixed;
+    top: 6.5rem;
+    right: 6.5rem;
+    background-image: radial-gradient(
+      $color-primary-light,
+      $color-primary-dark
+    );
+    // z-index works ONLY ON ELEMENT THAT HAS DEFINED position
+    z-index: 1000;
+    transition: transform 0.8s cubic-bezier(0.83, 0, 0.17, 1);
+
+    @include respond(tab-port) {
+      top: 4.5rem;
+      right: 4.5rem;
+    }
+    @include respond(tab-port) {
+      top: 3.5rem;
+      right: 3.5rem;
+    }
+  }
+
+  &__nav {
+    height: 100vh;
+    // even when we scroll navigation stays in the same place
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1500;
+
+    // This is so it wont be visible and uninteractive in the beginning
+    // Opacity alone would just make it invisible
+    opacity: 0;
+    width: 0;
+    transition: all 0.8s;
+  }
+
+  &__list {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // (gets rid of bullet points)
+    list-style: none;
+    text-align: center;
+    width: 100%;
+  }
+
+  &__item {
+    margin: 1rem;
+  }
+
+  &__link {
+    &:link,
+    &:visited {
+      display: inline-block;
+      font-size: 3rem;
+      font-weight: 300;
+      padding: 1rem 2rem;
+      color: $color-white;
+      text-decoration: none;
+      text-transform: uppercase;
+      background-image: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 50%,
+        $color-white 50%
+      );
+      //   this is so we see initially only one part of solid gradient
+      background-size: 250%;
+      transition: all 0.5s;
+
+      span {
+        margin-right: 1rem;
+        display: inline-block;
+      }
+    }
+
+    &:hover,
+    &active {
+      // now when we hover background position will shift,
+      // so we will see appearing 2nd color of solid gradient
+      background-position: 100%;
+      //   we also change color of text so its green,
+      color: $color-primary;
+      transform: translateX(1rem);
+    }
+  }
+
+  //Functionality
+  //   When we click on checkbox we scale background and make navigation visible!
+  &__checkbox:checked ~ &__background {
+    transform: scale(80);
+  }
+
+  &__checkbox:checked ~ &__nav {
+    opacity: 1;
+    width: 100%;
+  }
+
+  // Icon
+  &__icon {
+    position: relative;
+    margin-top: 3.5rem;
+    &,
+    &::before,
+    &::after {
+      width: 3rem;
+      height: 2px;
+      background-color: $color-grey-dark;
+      display: inline-block;
+    }
+
+    // so we but before and after black line
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      transition: all 0.2s;
+    }
+
+    // we position it nicely
+    &::before {
+      top: -0.8rem;
+    }
+    &::after {
+      top: 0.8rem;
+    }
+  }
+
+  //   when we hover BUTTON, we change position of lines
+  &__button:hover &__icon::before {
+    top: -1rem;
+  }
+  &__button:hover &__icon::after {
+    top: 1rem;
+  }
+
+  //   when checkbox is checked
+  &__checkbox:checked + &__button &__icon {
+    //   we dont change its size, bc after and before depend on it, so we would
+    //   mess with its position, instead we just change color to transparent!
+    background-color: transparent;
+  }
+
+  //   with after and before we transform them so it will make a cross
+  &__checkbox:checked + &__button &__icon::before {
+    top: 0;
+    transform: rotate(135deg);
+  }
+
+  &__checkbox:checked + &__button &__icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+  }
+}

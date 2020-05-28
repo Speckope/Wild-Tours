@@ -1,0 +1,115 @@
+/* We are selecting this button with sudo-class sudo classes are special classes
+We use sudo classes to style buttons under certain circumstances */
+/* We put link and visited together bc we dont want them to look different */
+.btn {
+  &,
+  &:link,
+  &:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    /* we use this diplay when we want to give an element some padding etc. Inline elements are also treated as if they were text*/
+    display: inline-block;
+    border-radius: 10rem;
+    transition: all 0.2s;
+    position: relative;
+    font-size: $default-font-size;
+
+    // Change for the <button> element
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover {
+    /* Y moves from top bo bottom */
+    transform: translateY(-0.3rem);
+    /* first property is offset in x, 2nd in y, 3rd is shadow blur, 4th is color
+        we can change opacity to make it subtle. Really cool */
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+
+    /* This is after sudo only when we hover */
+    &::after {
+      /* transform: scale() can change size of an element */
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &:active,
+  &focus {
+    outline: none;
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+  }
+
+  &--white {
+    background-color: $color-white;
+    color: $color-grey-dark;
+
+    &::after {
+      background-color: $color-white;
+    }
+  }
+
+  &--green {
+    background-color: $color-primary;
+    color: $color-white;
+
+    &::after {
+      background-color: $color-primary;
+    }
+  }
+
+  /* after puts something after an element */
+  &:after {
+    /* for sudo after to appear we have to specify content and display properties */
+    content: '';
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    /* to put something behind we can use absolute positioning naqd top left 0
+        absolute position needs to have a reference. Its reference is first element with 
+        relative position that it can find */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* z-index defines position of an element when they are one on top of each other */
+    z-index: -1;
+    transition: all 0.4s;
+  }
+
+  &--animated {
+    animation: moveInBottom 0.5s ease-out 0.75s;
+    /* this automatically applies 0% animation before the animatio starts */
+    animation-fill-mode: backwards;
+  }
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+    font-size: $default-font-size;
+    color: $color-primary;
+    // on inlie we can use padding, margin etc
+    display: inline;
+    // we set it to none bc we want our own
+    text-decoration: none;
+    border-bottom: 1px solid $color-primary;
+    // now we can set custom padding
+    padding: 3px;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+    transform: translateY(-2px);
+  }
+}

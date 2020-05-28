@@ -1,0 +1,146 @@
+.popup {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba($color-black, 0.8);
+  z-index: 3000;
+  // we hide it this way bc if we set display: none we cant animate it(?)
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
+  // this is a test if something supports cerain property
+  // it means if this property is supported, do {  }
+  // its called 'graceful degradation'
+  @supports (-webkit-backdrop-filter: blur(10px)) or
+    (backdrop-filter: blur(10px)) {
+    // this is a proporty for bluring background
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black, 0.5);
+  }
+
+  &__content {
+    @include absCenter;
+
+    width: 75%;
+    background-color: $color-white;
+    box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+    border-radius: 3px;
+    // we set this diplay left and right to behave as table cells
+    display: table;
+    // for images overflowing
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    // last .2s is for delay. So we allow background to
+    // come in and then start content animation
+    transition: all 0.4s 0.2s;
+
+    @include respond(desktop) {
+      width: 90%;
+    }
+  }
+
+  &__left {
+    width: 33.333333%;
+    display: table-cell;
+    @include respond(tab-land) {
+      width: 100%;
+      display: block;
+      height: 28vh;
+    }
+  }
+
+  &__right {
+    width: 66.666667%;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 3rem 5rem;
+
+    @include respond(desktop) {
+      padding: 1.5rem 3rem;
+    }
+    @include respond(tab-land) {
+      text-align: center;
+      width: 100%;
+      display: block;
+      height: 35rem;
+      overflow: scroll;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__img {
+    display: block;
+    // entire parent container width
+    width: 100%;
+
+    @include respond(tab-land) {
+      display: inline-block;
+      width: 50%;
+      height: 100%;
+      object-fit: cover;
+      float: left;
+      overflow: hidden;
+    }
+  }
+
+  &__text {
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+
+    @include respond(desktop) {
+      margin-bottom: 2rem;
+    }
+
+    column-count: 2;
+    column-gap: 4rem;
+    column-rule: 1px solid $color-grey-dark-2;
+    @include respond(tab-land) {
+      padding: 0;
+      column-count: 1;
+    }
+
+    // To są miejsca w których występują łączniki słów na końcach zdań
+    // gdy brakuje miejsca w linii
+    // for auto to work correctly, we have to define doc language
+    hyphens: auto;
+  }
+
+  // Open states
+
+  // this is sudo class that applies to element that is a target
+  // when we click on anchor
+  // so when we click on it we make our popup visible
+  &:target {
+    opacity: 1;
+    visibility: visible;
+  }
+  // This is so it will become larger for nnice animation
+  &:target &__content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  &__close {
+    &:link,
+    &:visited {
+      color: $color-grey-dark;
+      position: absolute;
+      top: 2.5rem;
+      right: 2.5rem;
+      font-size: 3rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}

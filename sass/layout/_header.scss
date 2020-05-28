@@ -1,0 +1,62 @@
+.header {
+  /* 95 vh means that at every point the height of this box is 95% of the view port height */
+  height: 95vh;
+  /* When we want some gradient on image we specify two bacground images with 'linear-gradient). 
+    We can also specify multiple directions like linear-gradient(to right bottom) SO COOOOL.
+    Next we change opacity of this gradient (4th value in rgba */
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.795),
+      rgba($color-primary-dark, 0.795)
+    ),
+    url('../img/hero-small.jpg');
+  /* Cover does that whatever the width if the view port it will always try to fit the element inside the box */
+  position: relative;
+  background-size: cover;
+  /* it ensured that picture will always be on top of the container(stick) */
+  background-position: top;
+  /* This is modern attribute that lets us specify poligon in whick image will be
+    css is cool?? polygon(x y, x y, x y, x y) xy from left top corner of container 
+    U can use also use some CSS clip path maker */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+  // tere are a lot of media queries and for images we use min resolution
+  // so if the res is higher we load higher rres image
+  // Also we add 'and' so it doesnt go into smaller but high res screens(phones)
+  // here we say apply this if or if 2000px
+  @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
+    only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+    only screen and (min-width: 125em) {
+    background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.795),
+        rgba($color-primary-dark, 0.795)
+      ),
+      url('../img/hero.jpg');
+  }
+
+  @include respond(phone) {
+    margin-bottom: $gutter-vertical-small;
+    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  }
+
+  &__logo-box {
+    position: absolute;
+    /* 40px get counted from parent element that has position set as relative */
+    top: 4rem;
+    left: 4rem;
+  }
+
+  &__logo {
+    /* When we specify only height, the width gets figured out automatically */
+    height: 3.5rem;
+  }
+
+  &__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}

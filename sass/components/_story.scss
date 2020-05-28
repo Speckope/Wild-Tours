@@ -1,0 +1,94 @@
+.story {
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba($color-black, 0.1);
+  background-color: rgba($color-white, 0.6);
+  border-radius: 3px;
+  padding: 6rem;
+  padding-left: 9rem;
+  font-size: $default-font-size;
+  transform: skewX(-9deg);
+
+  @include respond(tab-port) {
+    width: 100%;
+    padding: 4rem;
+    padding-left: 7rem;
+  }
+
+  @include respond(phone) {
+    transform: skewX(0deg);
+  }
+
+  & > * {
+    transform: skewX(9deg);
+  }
+
+  &__shape {
+    width: 15rem;
+    height: 15rem;
+    float: left;
+    // this is property that will create a shape! For it to work el must be floated
+    // also it has to have defined width and height
+    // it defines where the ncontent floates around the element
+    shape-outside: circle(50% at 50% 50%);
+
+    // now when we want the elment to look like that circle we ule clip-path
+    clip-path: circle(50% at 50% 50%);
+    // and now we move that circle
+    transform: translateX(-3rem) skewX(9deg);
+
+    position: relative;
+    overflow: hidden;
+
+    @include respond(phone) {
+      transform: skewX(0deg) translateX(-3rem);
+    }
+  }
+
+  //   images always have to have specified width and height. This image
+  // is inside a shape taht is defined and so when we say 100% it will take parents given size
+  &__img {
+    //   here we say height:100% bc image is higher than wider so it will adjust its width
+    height: 100%;
+    transform: translateX(-4rem) scale(1.4);
+    // when something weird happens with tanslate, animations, fifst we can try backface-visibility!!;
+    backface-visibility: hidden;
+    transition: all 0.5s;
+  }
+
+  &__text {
+    @include respond(phone) {
+      transform: skewX(0deg);
+    }
+  }
+
+  &__caption {
+    position: absolute;
+    // This properties are for centering
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    color: $color-white;
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.5s;
+    // this is for hiding that small hake at the end of an animation
+    backface-visibility: hidden;
+  }
+
+  //   when we hover .story, we want to change story__caption!!!
+  &:hover &__caption {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  //   when we hover the story, change the image!
+  &:hover &__img {
+    transform: translateX(-4rem) scale(1);
+    // a lot of properties we can use her ein filter!
+    // in brightness lower make sit darker, higher-brighter
+    filter: blur(3px) brightness(80%);
+  }
+}

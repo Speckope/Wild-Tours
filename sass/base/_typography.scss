@@ -1,0 +1,103 @@
+body {
+  /* We do fonts in body bc fonts usually get inhereted. Doing it this way is more efficient and is a bettere practice*/
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  /* font-size: 16px; */
+  line-height: 1.7;
+  color: $color-grey-dark;
+}
+
+.heading-primary {
+  color: $color-white;
+  text-transform: uppercase;
+  /* block elements occupy all the width avilable and create line breaks */
+
+  /* It will make that backpart (that is behind the element will be hidden). It will fix
+    little shaking after animation plays out(some bug or smh) */
+  backface-visibility: hidden;
+  margin-bottom: 6rem;
+
+  &--main {
+    /* Span element is by default an inline element */
+    /* We can use display property to chenge the type of this element!! */
+    /* with display: block it's a block element */
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 2.6rem;
+
+    /* Animation-name and animation-duration are properties required for animation to work */
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /* Optional properies */
+    /* animation-delay: 3s */
+    /* this means that animation will happen 3 times
+    animation-iteration-count: 3; */
+    /* how changes in animation will play out */
+    animation-timing-function: ease-out;
+
+    @include respond(phone) {
+      letter-spacing: 1rem;
+      font-size: 5rem;
+    }
+  }
+
+  &--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1rem;
+
+    /* This isshorter syntax */
+    animation: moveInRight 1s ease-out;
+
+    @include respond(phone) {
+      letter-spacing: 0.5rem;
+    }
+  }
+}
+
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  background-image: linear-gradient(
+    to right,
+    $color-primary-light,
+    $color-primary-dark
+  );
+  // it makes so background gets clipped exactly where text is
+  background-clip: text;
+  -webkit-background-clip: text;
+  // this way text will be transparent and we will see background gradient!
+  color: transparent;
+  letter-spacing: 0.2rem;
+  transition: all 0.2s;
+
+  @include respond(tab-port) {
+    font-size: 3rem;
+  }
+  @include respond(phone) {
+    font-size: 2.5rem;
+  }
+
+  &:hover {
+    transform: skewY(2deg) skewX(15deg) scale(1.1);
+    text-shadow: 0.5rem 1rem 2rem rgba($color-black, 0.2);
+  }
+}
+
+.heading-tertiary {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.paragraph {
+  font-size: 1.6rem;
+
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+}

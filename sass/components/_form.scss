@@ -1,0 +1,116 @@
+.form {
+  &__input {
+    font-size: 1.5rem;
+    // not it will autamatically ingerit ffont family, bc input doesnt usually
+    font-family: inherit;
+    // with litte more padding on sides, element looks better
+    padding: 1.5rem 2rem;
+    // now it will inherit also font color
+    color: inherit;
+    border-radius: 2px;
+    background-color: rgba($color-white, 0.5);
+    border: none;
+    border-bottom: 3px solid transparent;
+    width: 100%;
+    display: block;
+    transition: all 0.3s;
+
+    &::input-placeholder {
+      color: $color-grey-dark-2;
+    }
+
+    //   this is sudo for then we focus on element
+    &:focus {
+      //   we dont want normal outline
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+      border-bottom: 3px solid $color-primary;
+    }
+
+    // this is fix for default invalid browser highlight(red
+    &:invalid {
+      box-shadow: none;
+    }
+
+    // we select invalid focudes element
+    &:focus:invalid {
+      border-bottom: 3px solid $color-secondary-dark;
+    }
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    // margins bc we want it exactly above the label initially
+    margin-left: 2rem;
+    margin-top: 0.7rem;
+    display: block;
+    transition: all 0.3s;
+  }
+
+  //   when the placeholder is shown we want to style it
+  //   we want style the label, so we select adjacent(next to) sibling with "+" selector
+  // ~ selector is general sibling selector(works also when there are other silbling in between)
+  // also the sibling has to be after first selected
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem);
+  }
+
+  &__radio-group {
+    display: inline-block;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+
+    @include respond(tab-port) {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+
+  //   we hide radio inpit, bc we make our own radio button!
+  &__radio-input {
+    display: none;
+  }
+
+  &__radio-label {
+    font-size: $default-font-size;
+    cursor: pointer;
+    position: relative;
+    padding-left: 4.5rem;
+  }
+
+  &__radio-button {
+    height: 3rem;
+    width: 3rem;
+    border: 5px solid $color-primary;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -0.4rem;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 1.3rem;
+      width: 1.3rem;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $color-primary;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+  }
+
+  //   first we select all checked radio inputs, then its sibling radio label
+  //   and then radio label's child - radio button AND its after element
+  &__radio-input:checked ~ &__radio-label &__radio-button::after {
+    //   and we make it visible!
+    opacity: 1;
+  }
+}

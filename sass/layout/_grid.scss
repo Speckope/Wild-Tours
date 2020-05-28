@@ -1,0 +1,77 @@
+.row {
+  // max-width does it so that if width is lover than grid width it occupies 100% of its avilable width
+  max-width: $grid-width;
+  @include respond(tab-port) {
+    max-width: 50rem;
+    padding: 0 3rem;
+  }
+  // this centers block element inside other block element;
+  margin: 0 auto;
+
+  // not says everythind except specified in ()
+  &:not(:last-child) {
+    margin-bottom: $gutter-vertical;
+
+    @include respond(tab-port) {
+      margin-bottom: $gutter-vertical-small;
+    }
+  }
+
+  @include clearfix;
+
+  // this is how we specify attributes
+  // [alt="Logo"] {} will select all elements that have this attribute
+  // class^ select only those that START with specified
+  // * means any that contain
+  [class^='col-'] {
+    float: left;
+
+    &:not(:last-child) {
+      margin-right: $gutter-horizontal;
+
+      //   we remove gutter from columns, bc we set them to 100% width they are not next to each other
+      @include respond(tab-port) {
+        margin-right: 0;
+        margin-bottom: $gutter-vertical-small;
+      }
+    }
+
+    // on mobile devices we set big columns so they dont become narrow
+    @include respond(tab-port) {
+      width: 100% !important;
+    }
+  }
+
+  .col-1-of-2 {
+    // cals allows us to make calculations where we can mix units
+    // this also has advantage that we compile earlier
+    // we use # before sass variable in calc()
+    width: calc((100% - #{$gutter-horizontal}) / 2);
+  }
+
+  .col-1-of-3 {
+    width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+  }
+
+  .col-2-of-3 {
+    width: calc(
+      2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal}
+    );
+  }
+
+  .col-1-of-4 {
+    width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+  }
+
+  .col-2-of-4 {
+    width: calc(
+      2 * ((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal}
+    );
+  }
+
+  .col-3-of-4 {
+    width: calc(
+      3 * ((100% - 2 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal}
+    );
+  }
+}

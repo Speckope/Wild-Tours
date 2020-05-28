@@ -1,0 +1,51 @@
+@keyframes moveInLeft {
+    /* Wjat will hapen at % ot time animation goes for */
+    0% {
+        /* Przezroczystość i położenie względem obecnej pozycji */
+        opacity: 0;
+        transform: translateX(-10rem)
+    }
+
+    80% {
+        /* it will make that in 80% it will be slightly to the right */
+        transform: translateX(1rem)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0)
+    }
+}
+
+@keyframes moveInRight {
+    /* Wjat will hapen at % ot time animation goes for */
+    0% {
+        /* Przezroczystość i położenie względem obecnej pozycji */
+        opacity: 0;
+        transform: translateX(10rem)
+    }
+
+    80% {
+        /* it will make that in 80% it will be slightly to the right */
+        transform: translateX(-1rem)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0)
+    }
+}
+
+@keyframes moveInBottom {
+    /* Wjat will hapen at % ot time animation goes for */
+    0% {
+        /* Przezroczystość i położenie względem obecnej pozycji */
+        opacity: 0;
+        transform: translateY(3rem)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0)
+    }
+}
